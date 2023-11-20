@@ -2,7 +2,10 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast';
-import AppNavbar from './_components/AppNavbar';
+import NoticeMenu from '@/ui/Navbar/NoticeMenu';
+import AppNavbar from '@/ui/Navbar/AppNavbar';
+import Breadcrumbs from '@/ui/Breadcrumb/Breadcrumb';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,8 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Toaster />
+        <NoticeMenu />
         <AppNavbar />
-        {children}
+        <Breadcrumbs />
+        <main className='p-5'>{children}</main>
       </body>
     </html>
   )
