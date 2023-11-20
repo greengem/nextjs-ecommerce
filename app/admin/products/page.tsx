@@ -3,6 +3,14 @@ import { auth } from "@/auth";
 import { Product } from '@/types/ProductTypes';
 import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
+import { 
+	AdminTable, 
+	AdminTableHeader, 
+	AdminTableHeaderItem, 
+	AdminTableBody, 
+	AdminTableBodyRow, 
+	AdminTableBodyRowItem 
+} from '@/ui/Admin/Table';
 
 async function getProducts(): Promise<Product[]> {
     const products = await prisma.product.findMany({
@@ -40,23 +48,21 @@ export default async function AdminProductsPage() {
 		<>
 			<PageHeading title='Products' />
 			
-			<table className="min-w-full table-auto border-collapse border border-gray-200">
-				<thead className="bg-gray-100">
-					<tr className='border-b border-gray-200 text-left text-sm font-semibold text-gray-600'>
-						<th className='px-4 py-2'>Select</th>
-						<th className='px-4 py-2'>Image</th>
-						<th className='px-4 py-2'>Name</th>
-						<th className='px-4 py-2'>Price</th>
-						<th className='px-4 py-2'>Category</th>
-						<th className='px-4 py-2'>Tags</th>
-						<th className='px-4 py-2'>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
+			<AdminTable>
+				<AdminTableHeader>
+					<AdminTableHeaderItem>Select</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Image</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Name</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Price</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Category</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Tags</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Actions</AdminTableHeaderItem>
+				</AdminTableHeader>
+				<AdminTableBody>
 					{products.map((product) => (
-						<tr key={product.id} className='border-b border-gray-200 text-sm text-gray-700'>
-							<td className='px-4 py-2'><input type='checkbox' /></td>
-							<td className='px-4 py-2'>
+						<AdminTableBodyRow key={product.id}>
+							<AdminTableBodyRowItem><input type='checkbox' /></AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>
 								<>
 									{product.image ? (
 										<Image 
@@ -74,28 +80,28 @@ export default async function AdminProductsPage() {
 										/>
 									)}
 								</>
-							</td>
-							<td className='px-4 py-2'>{product.name}</td>
-							<td className='px-4 py-2'>£{product.price}</td>
-							<td className='px-4 py-2'>
+							</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>{product.name}</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>£{product.price}</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>
 								{product.categories.map(category => (
 									<p key={category.id}>{category.name}</p>
 								))}
-							</td>
-							<td className='px-4 py-2'>
+							</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>
 								<ul className='flex gap-2'>
 								{product.tags.map(tag => (
 									<li key={tag.id}>{tag.name}</li>
 								))}
 								</ul>
-							</td>
-							<td className='px-4 py-2'>
+							</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>
 								<button>Edit</button>
-							</td>
-						</tr>
+							</AdminTableBodyRowItem>
+						</AdminTableBodyRow>
 					))}
-				</tbody>
-			</table>
+				</AdminTableBody>
+			</AdminTable>
 		</>
 	)
 }

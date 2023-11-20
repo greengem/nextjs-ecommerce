@@ -4,6 +4,14 @@ import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
 import { Order } from '@/types/OrderTypes';
 import { format } from 'date-fns';
+import { 
+	AdminTable, 
+	AdminTableHeader, 
+	AdminTableHeaderItem, 
+	AdminTableBody, 
+	AdminTableBodyRow, 
+	AdminTableBodyRowItem 
+} from '@/ui/Admin/Table';
 
 async function getOrders(): Promise<Order[]> {
     const orders = await prisma.order.findMany({
@@ -36,30 +44,28 @@ export default async function AdminUsersPage() {
 		<>
 			<PageHeading title='Orders' />
 			
-			<table className="min-w-full table-auto border-collapse border border-gray-200">
-				<thead className="bg-gray-100">
-					<tr className='border-b border-gray-200 text-left text-sm font-semibold text-gray-600'>
-						<th className='px-4 py-2'>Select</th>
-						<th className='px-4 py-2'>Order ID</th>
-						<th className='px-4 py-2'>Created</th>
-						<th className='px-4 py-2'>Updated</th>
-						<th className='px-4 py-2'>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
+			<AdminTable>
+				<AdminTableHeader>
+					<AdminTableHeaderItem>Select</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Order ID</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Created</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Updated</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Actions</AdminTableHeaderItem>
+				</AdminTableHeader>
+				<AdminTableBody>
 					{orders.map((order) => (
-						<tr key={order.id} className='border-b border-gray-200 text-sm text-gray-700'>
-							<td className='px-4 py-2'><input type='checkbox' /></td>
-							<td className='px-4 py-2'>{order.id}</td>
-							<td className='px-4 py-2'>{format(new Date(order.createdAt), 'PPpp')}</td>
-							<td className='px-4 py-2'>{format(new Date(order.updatedAt), 'PPpp')}</td>
-							<td className='px-4 py-2'>
+						<AdminTableBodyRow>
+							<AdminTableBodyRowItem><input type='checkbox' /></AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>{order.id}</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>{format(new Date(order.createdAt), 'PPpp')}</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>{format(new Date(order.updatedAt), 'PPpp')}</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>
 								<button>Edit</button>
-							</td>
-						</tr>
+							</AdminTableBodyRowItem>
+						</AdminTableBodyRow>
 					))}
-				</tbody>
-			</table>
+				</AdminTableBody>
+			</AdminTable>
 		</>
 	)
 }

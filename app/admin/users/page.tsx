@@ -3,7 +3,14 @@ import { auth } from "@/auth";
 import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
 import { User } from '@/types/UserTypes';
-
+import { 
+	AdminTable, 
+	AdminTableHeader, 
+	AdminTableHeaderItem, 
+	AdminTableBody, 
+	AdminTableBodyRow, 
+	AdminTableBodyRowItem 
+} from '@/ui/Admin/Table';
 
 async function getUsers(): Promise<User[]> {
     const users = await prisma.user.findMany({
@@ -24,21 +31,19 @@ export default async function AdminUsersPage() {
 		<>
 			<PageHeading title='Users' />
 			
-			<table className="min-w-full table-auto border-collapse border border-gray-200">
-				<thead className="bg-gray-100">
-					<tr className='border-b border-gray-200 text-left text-sm font-semibold text-gray-600'>
-						<th className='px-4 py-2'>Select</th>
-						<th className='px-4 py-2'>Image</th>
-						<th className='px-4 py-2'>Name</th>
-						<th className='px-4 py-2'>Email</th>
-						<th className='px-4 py-2'>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
+			<AdminTable>
+				<AdminTableHeader>
+					<AdminTableHeaderItem>Select</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Image</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Name</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Email</AdminTableHeaderItem>
+					<AdminTableHeaderItem>Actions</AdminTableHeaderItem>
+				</AdminTableHeader>
+				<AdminTableBody>
 					{users.map((user) => (
-						<tr key={user.id} className='border-b border-gray-200 text-sm text-gray-700'>
-							<td className='px-4 py-2'><input type='checkbox' /></td>
-							<td className='px-4 py-2'>
+						<AdminTableBodyRow key={user.id}>
+							<AdminTableBodyRowItem><input type='checkbox' /></AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>
 								<>
 									{user.image ? (
 										<Image 
@@ -56,16 +61,16 @@ export default async function AdminUsersPage() {
 										/>
 									)}
 								</>
-							</td>
-							<td className='px-4 py-2'>{user.name}</td>
-							<td className='px-4 py-2'>{user.email}</td>
-							<td className='px-4 py-2'>
+							</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>{user.name}</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>{user.email}</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem>
 								<button>Edit</button>
-							</td>
-						</tr>
+							</AdminTableBodyRowItem>
+						</AdminTableBodyRow>
 					))}
-				</tbody>
-			</table>
+				</AdminTableBody>
+			</AdminTable>
 		</>
 	)
 }
