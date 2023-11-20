@@ -1,5 +1,7 @@
+import PageHeading from "@/ui/Heading/PageHeading";
+
 export default function Orders() {
     return (
-        <p>Hello</p>
+        <PageHeading title='Orders' />
     )
 }

@@ -2,6 +2,7 @@ import prisma from '@/db/prisma';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/types/ProductTypes';
+import PageHeading from '@/ui/Heading/PageHeading';
 
 async function getProduct(slug: string): Promise<Product | null> {
     const product = await prisma.product.findUnique({
@@ -44,6 +45,8 @@ export default async function Product({ params }: { params: { slug: string } }) 
 
     return (
         <>
+            <PageHeading title={product.name} />
+
             {product.image ? (
                 <Image 
                     src={product.image} 

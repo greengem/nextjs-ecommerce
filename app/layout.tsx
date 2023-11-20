@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import NoticeMenu from '@/ui/Navbar/NoticeMenu';
 import AppNavbar from '@/ui/Navbar/AppNavbar';
 import Breadcrumbs from '@/ui/Breadcrumb/Breadcrumb';
-
+import AdminMenu from '@/ui/Navbar/AdminMenu';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Toaster />
         <NoticeMenu />
+        <AdminMenu />
         <AppNavbar />
         <Breadcrumbs />
         <main className='p-5'>{children}</main>

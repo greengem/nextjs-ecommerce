@@ -1,5 +1,6 @@
 import prisma from '@/db/prisma';
 import { Product } from '@/types/ProductTypes';
+import PageHeading from '@/ui/Heading/PageHeading';
 import ProductItem from '@/ui/Product/ProductItem';
 
 async function getProducts(): Promise<Product[]> {
@@ -35,10 +36,14 @@ export default async function Products() {
     const products = await getProducts();
 
     return (
-        <div className='grid grid-cols-1 md:grid-cols-5 gap-5'>
-            {products.map((product) => (
-                <ProductItem key={product.id} product={product} />
-            ))}
-        </div>
+        <>
+            <PageHeading title='Products' />
+
+            <div className='grid grid-cols-1 md:grid-cols-5 gap-5'>
+                {products.map((product) => (
+                    <ProductItem key={product.id} product={product} />
+                ))}
+            </div>
+        </>
     )
 }

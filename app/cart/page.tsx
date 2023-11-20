@@ -1,5 +1,7 @@
+import PageHeading from "@/ui/Heading/PageHeading";
+
 export default function Cart() {
     return (
-        <p>Hello</p>
+        <PageHeading title='Cart' />
     )
 }

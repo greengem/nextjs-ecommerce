@@ -30,11 +30,23 @@ export default function ProductItem({ product }: ProductItemProps) {
             <p>{product.slug}</p>
             <p className='text-xs'>{product.description}</p>
             <p className='text-xs font-bold'>£{product.price}</p>
+            <p className="font-semibold">Categories: </p>
             <ul>
                 {product.categories.map(category => (
                     <li key={category.id}>
                         <Link href={`/category/${category.slug}`}>
                             {category.name}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+
+            <p className="font-semibold">Tags: </p>
+            <ul>
+                {product.tags.map(tag => (
+                    <li key={tag.id}>
+                        <Link href={`/category/${tag.slug}`}>
+                            {tag.name}
                         </Link>
                     </li>
                 ))}
