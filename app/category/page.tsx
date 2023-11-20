@@ -8,6 +8,7 @@ async function getCategories(): Promise<Category[]> {
             id: true,
             name: true,
             slug: true,
+            image: true,
         }
     });
     return categories;

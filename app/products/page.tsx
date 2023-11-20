@@ -18,6 +18,13 @@ async function getProducts(): Promise<Product[]> {
                     slug: true,
                     image: true,
                 }
+            },
+            tags: {
+                select: {
+                    id: true,
+                    name: true,
+                    slug: true,
+                }
             }
         }
     });

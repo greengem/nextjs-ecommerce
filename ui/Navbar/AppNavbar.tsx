@@ -20,6 +20,11 @@ export default async function AppNavbar() {
                         Categories
                     </Link>
                 </li>
+                <li>
+                    <Link href="/tag">
+                        Tags
+                    </Link>
+                </li>
             </ul>
             {session?.user?.image && (
                 <Image 

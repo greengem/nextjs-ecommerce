@@ -22,6 +22,13 @@ async function getProduct(slug: string): Promise<Product | null> {
                     slug: true,
                     image: true,
                 }
+            },
+            tags: {
+                select: {
+                    id: true,
+                    name: true,
+                    slug: true,
+                }
             }
         }
     });

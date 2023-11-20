@@ -5,7 +5,7 @@ import ProductItem from '@/ui/Product/ProductItem';
 async function getProducts(slug: string): Promise<Product[]> {
     const products = await prisma.product.findMany({
         where: {
-            categories: {
+            tags: {
                 some: {
                     slug: slug,
                 }
@@ -38,11 +38,11 @@ async function getProducts(slug: string): Promise<Product[]> {
     return products;
 }
 
-export default async function ProductsByCategory({ params }: { params: { slug: string } }) {
+export default async function ProductsByTag({ params }: { params: { slug: string } }) {
     const products = await getProducts(params.slug);
 
     if (!products) {
-        return <div>Category not found</div>;
+        return <div>Tag not found</div>;
     }
 
     return (

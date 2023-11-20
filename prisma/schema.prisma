@@ -64,6 +64,7 @@ model Product {
   description String
   image     String?
   categories Category[]
+  tags        Tag[]     @relation("ProductTags")
   orderItems OrderItem[]
   inventory   Inventory[]
 }
@@ -74,6 +75,13 @@ model Category {
   slug      String      @unique
   image     String?
   products  Product[]
+}
+
+model Tag {
+    id        String    @id @default(cuid())
+    name      String    @unique
+    slug      String    @unique
+    products  Product[] @relation("ProductTags")
 }
 
 model Inventory {
