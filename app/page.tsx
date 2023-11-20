@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
-import { SignInButton, SignOutButton } from "./_components/AuthButtons";
+import { SignInButton, SignOutButton } from "@/ui/AuthButtons";
+
 export default async function HomePage() {
 	const session = await auth();
 
@@ -10,10 +11,6 @@ export default async function HomePage() {
 			<>
 				<SignOutButton />
 				<pre>{JSON.stringify(session, null, 2)}</pre>
-				<ul>
-					<li>email {session.user?.email}</li>
-					<li>id {session.user?.id}</li>
-				</ul>
 			</>
 		)
 	}

@@ -45,6 +45,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
 }
 
 model VerificationToken {
@@ -54,3 +55,50 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Product {
+  id          String    @id @default(cuid())
+  name      String
+  slug      String      @unique
+  price     Float
+  description String
+  image     String?
+  categories Category[]
+  orderItems OrderItem[]
+  inventory   Inventory[]
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name      String
+  slug      String      @unique
+  image     String?
+  products  Product[]
+}
+
+model Inventory {
+  id          String    @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity     Int
+}
+
+model Order {
+  id          String    @id @default(cuid())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  orderItems OrderItem[]
+}
+
+
+model OrderItem {
+  id        String    @id @default(cuid())
+  quantity  Int
+  productId String
+  product   Product   @relation(fields: [productId], references: [id])
+  orderId   String
+  order     Order     @relation(fields: [orderId], references: [id])
+}
+
