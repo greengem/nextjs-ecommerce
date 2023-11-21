@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from 'next/cache'
 
 const ProductSchema = z.object({
+  productId: z.string().optional(),
 	productName: z.string(),
 	productSlug: z.string(),
 	productDescription: z.string(),
@@ -36,9 +37,6 @@ export async function handleCreateNewProduct(formData: FormData) {
 
   try {
     const validatedData = ProductSchema.parse(productData);
-    
-    console.log(validatedData);
-
     const product = await prisma.product.create({
       data: {
         name: validatedData.productName,
@@ -54,13 +52,64 @@ export async function handleCreateNewProduct(formData: FormData) {
       }
     });
 
-    redirect("/admin/products");
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+  redirect('/admin/products');
+}
+
+
+export async function handleEditProduct(formData: FormData) {
+  const productId = formData.get('productId') as string;
+  const productName = formData.get('productName') as string;
+  const productSlug = formData.get('productSlug') as string;
+  const productDescription = formData.get('productDescription') as string;
+  const productPrice = parseFloat(formData.get('productPrice') as string) || 0;
+  const productCategory = formData.get('productCategory') as string;
+  const productTags = formData.getAll('productTags') as string[];
+  const productImage = formData.get('productImage') as File | string;
+
+  const productData = {
+    productId, 
+    productName,
+    productSlug,
+    productDescription,
+    productPrice,
+    productCategory,
+    productTags,
+    productImage,
+  };
+
+  try {
+    const validatedData = ProductSchema.parse(productData);
+    const product = await prisma.product.update({
+      where: {
+        id: validatedData.productId,
+      },
+      data: {
+        name: validatedData.productName,
+        slug: validatedData.productSlug,
+        description: validatedData.productDescription,
+        price: validatedData.productPrice,
+        categories: {
+          connect: { slug: validatedData.productCategory },
+        },
+        tags: {
+          connect: validatedData.productTags.map(tagSlug => ({ slug: tagSlug })),
+        },
+      }
+    });
 
   } catch (error) {
     console.error(error);
     throw error;
   }
+
+  redirect('/admin/products');
 }
+
 
 export async function handleDeleteProduct(formData: FormData) {
   const productId = formData.get('productId') as string;

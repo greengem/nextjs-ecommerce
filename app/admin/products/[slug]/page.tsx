@@ -1,17 +1,16 @@
 import PageHeading from '@/ui/Heading/PageHeading';
-import { handleCreateNewProduct } from '@/app/actions/ProductActions';
+import { handleEditProduct } from '@/app/actions/ProductActions';
 import Button from '@/ui/Button';
 import { getProduct } from '@/lib/FetchData';
 
 export default async function AdminEditProductPage({ params }: { params: { slug: string } }) {
 	const product = await getProduct(params.slug);
-	console.log(product);
 	
 	return (
 		<>
 			<PageHeading title='Edit Product' />
 
-			<form action={handleCreateNewProduct} className='max-w-lg mx-auto'>
+			<form action={handleEditProduct} className='max-w-lg mx-auto'>
 				<label htmlFor='productName' className='block text-gray-600 font-semibold'>Product Name</label>
 				<input type='text' id='productName' name='productName' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" defaultValue={product?.name} />
 
@@ -25,7 +24,7 @@ export default async function AdminEditProductPage({ params }: { params: { slug:
 				<textarea id='productDescription' name='productDescription' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" defaultValue={product?.description} />
 
 				<label htmlFor='productImage' className='block text-gray-600 font-semibold'>Image</label>
-				<input type='file' id='productImage' name='productImage' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
+				<input type='file' id='productImage' name='productImage' className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
 
 				<label htmlFor="productCategory" className='block text-gray-600 font-semibold'>Category</label>
 				<select id="productCategory" name="productCategory">
@@ -40,6 +39,8 @@ export default async function AdminEditProductPage({ params }: { params: { slug:
 					<option value="silver">Silver</option>
 					<option value="necklace">Necklace</option>
 				</select>
+
+				<input type="hidden" name="productId" value={product?.id} />
 
 				<Button type='submit'>Submit</Button>
 

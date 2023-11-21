@@ -21,7 +21,7 @@ export default function AdminNewProductPage() {
 				<textarea id='productDescription' name='productDescription' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
 
 				<label htmlFor='productImage' className='block text-gray-600 font-semibold'>Image</label>
-				<input type='file' id='productImage' name='productImage' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
+				<input type='file' id='productImage' name='productImage' className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
 
 				<label htmlFor="productCategory" className='block text-gray-600 font-semibold'>Category</label>
 				<select id="productCategory" name="productCategory">
