@@ -1,10 +1,7 @@
-import prisma from '@/db/prisma';
-import { auth } from "@/auth";
-import { Product } from '@/types/ProductTypes';
+import { getProducts } from "@/lib/FetchData";
 import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
-import { handleDeleteProduct } from '@/app/actions';
-
+import { handleDeleteProduct } from '@/app/actions/ProductActions';
 import { 
 	AdminTable, 
 	AdminTableHeader, 
@@ -16,37 +13,7 @@ import {
 import Button from '@/ui/Button';
 import Link from 'next/link';
 
-async function getProducts(): Promise<Product[]> {
-    const products = await prisma.product.findMany({
-        select: {
-            id: true,
-            name: true,
-            slug: true,
-            price: true,
-            description: true,
-            image: true,
-            categories: {
-                select: {
-                    id: true,
-                    name: true,
-                    slug: true,
-                    image: true,
-                }
-            },
-            tags: {
-                select: {
-                    id: true,
-                    name: true,
-                    slug: true,
-                }
-            }
-        }
-    });
-    return products;
-}
-
 export default async function AdminProductsPage() {
-	const session = await auth();
 	const products = await getProducts();
 	return (
 		<>
@@ -103,7 +70,7 @@ export default async function AdminProductsPage() {
 							</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
 								<div className='flex gap-2'>
-									<Button>Edit</Button>
+									<Link href={`/admin/products/${product.slug}`}>Edit</Link>
 									<form action={handleDeleteProduct}>
 										<input type="hidden" name="productId" value={product.id} />
 										<Button type='submit'>Delete</Button>

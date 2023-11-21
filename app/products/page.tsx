@@ -1,36 +1,6 @@
-import prisma from '@/db/prisma';
-import { Product } from '@/types/ProductTypes';
+import { getProducts } from "@/lib/FetchData";
 import PageHeading from '@/ui/Heading/PageHeading';
 import ProductItem from '@/ui/Product/ProductItem';
-
-async function getProducts(): Promise<Product[]> {
-    const products = await prisma.product.findMany({
-        select: {
-            id: true,
-            name: true,
-            slug: true,
-            price: true,
-            description: true,
-            image: true,
-            categories: {
-                select: {
-                    id: true,
-                    name: true,
-                    slug: true,
-                    image: true,
-                }
-            },
-            tags: {
-                select: {
-                    id: true,
-                    name: true,
-                    slug: true,
-                }
-            }
-        }
-    });
-    return products;
-}
 
 export default async function Products() {
     const products = await getProducts();

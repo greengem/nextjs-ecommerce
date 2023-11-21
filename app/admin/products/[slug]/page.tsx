@@ -1,24 +1,28 @@
 import PageHeading from '@/ui/Heading/PageHeading';
 import { handleCreateNewProduct } from '@/app/actions/ProductActions';
 import Button from '@/ui/Button';
+import { getProduct } from '@/lib/FetchData';
 
-export default function AdminNewProductPage() {
+export default async function AdminEditProductPage({ params }: { params: { slug: string } }) {
+	const product = await getProduct(params.slug);
+	console.log(product);
+	
 	return (
 		<>
-			<PageHeading title='New Product' />
+			<PageHeading title='Edit Product' />
 
 			<form action={handleCreateNewProduct} className='max-w-lg mx-auto'>
 				<label htmlFor='productName' className='block text-gray-600 font-semibold'>Product Name</label>
-				<input type='text' id='productName' name='productName' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
+				<input type='text' id='productName' name='productName' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" defaultValue={product?.name} />
 
 				<label htmlFor='productSlug' className='block text-gray-600 font-semibold'>Slug</label>
-				<input type='text' id='productSlug' name='productSlug' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
+				<input type='text' id='productSlug' name='productSlug' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" defaultValue={product?.slug} />
 
 				<label htmlFor='productPrice' className='block text-gray-600 font-semibold'>Price</label>
-				<input type='number' id='productPrice' name='productPrice' step='0.01' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
+				<input type='number' id='productPrice' name='productPrice' step='0.01' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" defaultValue={product?.price}  />
 
 				<label htmlFor='productDescription' className='block text-gray-600 font-semibold'>Description</label>
-				<textarea id='productDescription' name='productDescription' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
+				<textarea id='productDescription' name='productDescription' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" defaultValue={product?.description} />
 
 				<label htmlFor='productImage' className='block text-gray-600 font-semibold'>Image</label>
 				<input type='file' id='productImage' name='productImage' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
@@ -36,9 +40,6 @@ export default function AdminNewProductPage() {
 					<option value="silver">Silver</option>
 					<option value="necklace">Necklace</option>
 				</select>
-
-				<label htmlFor='productInventory' className='block text-gray-600 font-semibold'>Inventory</label>
-				<input type='number' id='productInventory' name='productInventory' required className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
 
 				<Button type='submit'>Submit</Button>
 

@@ -1,19 +1,6 @@
-import prisma from '@/db/prisma';
+import { getCategories } from '@/lib/FetchData';
 import Link from 'next/link';
-import { Category } from '@/types/ProductTypes';
 import PageHeading from '@/ui/Heading/PageHeading';
-
-async function getCategories(): Promise<Category[]> {
-    const categories = await prisma.category.findMany({
-        select: {
-            id: true,
-            name: true,
-            slug: true,
-            image: true,
-        }
-    });
-    return categories;
-}
 
 export default async function Products() {
     const categories = await getCategories();

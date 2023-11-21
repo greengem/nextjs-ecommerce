@@ -1,8 +1,6 @@
-import prisma from '@/db/prisma';
-import { auth } from "@/auth";
+import { getUsers } from '@/lib/FetchData';
 import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
-import { User } from '@/types/UserTypes';
 import { 
 	AdminTable, 
 	AdminTableHeader, 
@@ -13,20 +11,7 @@ import {
 } from '@/ui/Admin/Table';
 import Button from '@/ui/Button';
 
-async function getUsers(): Promise<User[]> {
-    const users = await prisma.user.findMany({
-        select: {
-            id: true,
-            name: true,
-			email: true,
-            image: true,
-        }
-    });
-    return users;
-}
-
 export default async function AdminUsersPage() {
-	const session = await auth();
 	const users = await getUsers();
 	return (
 		<>

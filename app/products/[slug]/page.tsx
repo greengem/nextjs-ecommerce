@@ -1,40 +1,7 @@
-import prisma from '@/db/prisma';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Product } from '@/types/ProductTypes';
+import { getProduct } from "@/lib/FetchData";
 import PageHeading from '@/ui/Heading/PageHeading';
-
-async function getProduct(slug: string): Promise<Product | null> {
-    const product = await prisma.product.findUnique({
-        where: {
-            slug: slug,
-        },
-        select: {
-            id: true,
-            name: true,
-            slug: true,
-            price: true,
-            description: true,
-            image: true,
-            categories: {
-                select: {
-                    id: true,
-                    name: true,
-                    slug: true,
-                    image: true,
-                }
-            },
-            tags: {
-                select: {
-                    id: true,
-                    name: true,
-                    slug: true,
-                }
-            }
-        }
-    });
-    return product;
-}
 
 export default async function Product({ params }: { params: { slug: string } }) {
     const product = await getProduct(params.slug);

@@ -1,8 +1,5 @@
-import prisma from '@/db/prisma';
-import { auth } from "@/auth";
-import Image from 'next/image';
+import { getOrders } from "@/lib/FetchData";
 import PageHeading from '@/ui/Heading/PageHeading';
-import { Order } from '@/types/OrderTypes';
 import { format } from 'date-fns';
 import { 
 	AdminTable, 
@@ -14,32 +11,7 @@ import {
 } from '@/ui/Admin/Table';
 import Button from '@/ui/Button';
 
-async function getOrders(): Promise<Order[]> {
-    const orders = await prisma.order.findMany({
-        select: {
-            id: true,
-            createdAt: true,
-            updatedAt: true,
-            userId: true,
-            orderItems: {
-                select: {
-                    id: true,
-                    quantity: true,
-                    product: {
-                        select: {
-                            id: true,
-                            name: true,
-                        }
-                    }
-                }
-            }
-        }
-    });
-    return orders;
-}
-
 export default async function AdminUsersPage() {
-	const session = await auth();
 	const orders = await getOrders();
 	return (
 		<>

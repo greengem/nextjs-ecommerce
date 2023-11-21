@@ -1,18 +1,6 @@
-import prisma from '@/db/prisma';
+import { getTags } from '@/lib/FetchData';
 import Link from 'next/link';
-import { Tag } from '@/types/ProductTypes';
 import PageHeading from '@/ui/Heading/PageHeading';
-
-async function getTags(): Promise<Tag[]> {
-    const tags = await prisma.tag.findMany({
-        select: {
-            id: true,
-            name: true,
-            slug: true,
-        }
-    });
-    return tags;
-}
 
 export default async function Products() {
     const tags = await getTags();
