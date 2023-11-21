@@ -3,6 +3,8 @@ import { auth } from "@/auth";
 import { Product } from '@/types/ProductTypes';
 import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
+import { handleDeleteProduct } from '@/app/actions';
+
 import { 
 	AdminTable, 
 	AdminTableHeader, 
@@ -100,7 +102,13 @@ export default async function AdminProductsPage() {
 								</ul>
 							</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
-								<Button>Edit</Button>
+								<div className='flex gap-2'>
+									<Button>Edit</Button>
+									<form action={handleDeleteProduct}>
+										<input type="hidden" name="productId" value={product.id} />
+										<Button type='submit'>Delete</Button>
+									</form>
+								</div>
 							</AdminTableBodyRowItem>
 						</AdminTableBodyRow>
 					))}

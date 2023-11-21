@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import prisma from '@/db/prisma';
 import { redirect } from "next/navigation";
+import { revalidatePath } from 'next/cache'
 
 const ProductSchema = z.object({
 	productName: z.string(),
@@ -54,6 +55,28 @@ export async function handleCreateNewProduct(formData: FormData) {
     });
 
     redirect("/admin/products");
+
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function handleDeleteProduct(formData: FormData) {
+  const productId = formData.get('productId') as string;
+
+  if (!productId) {
+    throw new Error("Product ID is required for deletion.");
+  }
+  
+  try {
+    const deletedProduct = await prisma.product.delete({
+      where: {
+        id: productId,
+      },
+    });
+
+    revalidatePath('/admin/products')
 
   } catch (error) {
     console.error(error);
