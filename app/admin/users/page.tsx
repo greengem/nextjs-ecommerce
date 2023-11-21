@@ -11,6 +11,7 @@ import {
 	AdminTableBodyRow, 
 	AdminTableBodyRowItem 
 } from '@/ui/Admin/Table';
+import Button from '@/ui/Button';
 
 async function getUsers(): Promise<User[]> {
     const users = await prisma.user.findMany({
@@ -50,14 +51,14 @@ export default async function AdminUsersPage() {
 											src={user.image} 
 											alt={user.name || 'User Image'}
 											width={32} height={32}
-											className='mb-1'
+											className='mb-1 rounded-full'
 										/>
 									) : (
 										<Image 
 											src="https://loremflickr.com/60/60" 
 											alt='placeholder' 
 											width={32} height={32}
-											className='mb-1'
+											className='mb-1 rounded-full'
 										/>
 									)}
 								</>
@@ -65,7 +66,7 @@ export default async function AdminUsersPage() {
 							<AdminTableBodyRowItem>{user.name}</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>{user.email}</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
-								<button>Edit</button>
+								<Button>Edit</Button>
 							</AdminTableBodyRowItem>
 						</AdminTableBodyRow>
 					))}

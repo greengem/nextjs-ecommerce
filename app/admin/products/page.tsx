@@ -11,6 +11,8 @@ import {
 	AdminTableBodyRow, 
 	AdminTableBodyRowItem 
 } from '@/ui/Admin/Table';
+import Button from '@/ui/Button';
+import Link from 'next/link';
 
 async function getProducts(): Promise<Product[]> {
     const products = await prisma.product.findMany({
@@ -48,9 +50,11 @@ export default async function AdminProductsPage() {
 		<>
 			<PageHeading title='Products' />
 			
+			<Link href="/admin/products/new">New Product</Link>
+
 			<AdminTable>
 				<AdminTableHeader>
-					<AdminTableHeaderItem>Select</AdminTableHeaderItem>
+					<AdminTableHeaderItem><></></AdminTableHeaderItem>
 					<AdminTableHeaderItem>Image</AdminTableHeaderItem>
 					<AdminTableHeaderItem>Name</AdminTableHeaderItem>
 					<AdminTableHeaderItem>Price</AdminTableHeaderItem>
@@ -69,14 +73,14 @@ export default async function AdminProductsPage() {
 											src={product.image} 
 											alt={product.name} 
 											width={32} height={32}
-											className='mb-1'
+											className='mb-1 rounded-full'
 										/>
 									) : (
 										<Image 
 											src="https://loremflickr.com/60/60" 
 											alt='placeholder' 
 											width={32} height={32}
-											className='mb-1'
+											className='mb-1 rounded-full'
 										/>
 									)}
 								</>
@@ -96,7 +100,7 @@ export default async function AdminProductsPage() {
 								</ul>
 							</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
-								<button>Edit</button>
+								<Button>Edit</Button>
 							</AdminTableBodyRowItem>
 						</AdminTableBodyRow>
 					))}

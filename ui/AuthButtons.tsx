@@ -1,10 +1,11 @@
 "use client";
 import { signIn, signOut } from "next-auth/react";
+import Button from "@/ui/Button";
 
 export function SignInButton() {
-    return <button className="px-5 py-2 bg-gray-800 rounded-lg text-white" onClick={() => signIn()}>Sign In</button>;
+    return <Button onClick={() => signIn()}>Sign In</Button>;
 }
 
 export function SignOutButton() {
-    return <button className="px-5 py-2 bg-gray-800 rounded-lg text-white" onClick={() => signOut()}>Sign Out</button>;
+    return <Button onClick={() => signOut()}>Sign Out</Button>;
 }
