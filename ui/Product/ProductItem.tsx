@@ -45,7 +45,7 @@ export default function ProductItem({ product }: ProductItemProps) {
             <ul>
                 {product.tags.map(tag => (
                     <li key={tag.id}>
-                        <Link href={`/category/${tag.slug}`}>
+                        <Link href={`/tag/${tag.slug}`}>
                             {tag.name}
                         </Link>
                     </li>

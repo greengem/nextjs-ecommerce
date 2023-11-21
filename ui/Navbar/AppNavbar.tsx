@@ -7,9 +7,9 @@ export default async function AppNavbar() {
     const brandName = process.env.NEXT_PUBLIC_BRAND_NAME;
 
     return (
-        <nav className="flex justify-between px-5 py-3 items-center border-b-2 border-black">
-            <p><Link className="font-semibold" href="/">{brandName}</Link></p>
-            <ul className="flex gap-3">
+        <nav className="flex justify-between px-5 py-3 items-center bg-gray-200">
+            <p className="w-32 text-lg"><Link className="font-bold" href="/">{brandName}</Link></p>
+            <ul className="flex gap-3 font-semibold">
                 <li>
                     <Link href="/products">
                         Products
@@ -27,12 +27,14 @@ export default async function AppNavbar() {
                 </li>
             </ul>
             {session?.user?.image && (
-                <Image 
-                src={session.user.image || '/default-avatar.png'}
-                    width={32} height={32}
-                    className="rounded-full"
-                    alt="User Avatar"
-                />
+                <div className="w-32 flex justify-end">
+                    <Image 
+                        src={session.user.image || '/default-avatar.png'}
+                        width={32} height={32}
+                        className="rounded-full"
+                        alt="User Avatar"
+                    />
+                </div>
             )}
         </nav>
     )

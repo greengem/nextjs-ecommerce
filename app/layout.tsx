@@ -26,7 +26,6 @@ export default function RootLayout({
         <AdminMenu />
         <NoticeMenu />
         <AppNavbar />
-        <Breadcrumbs />
         <main className='p-5'>{children}</main>
       </body>
     </html>
