@@ -54,7 +54,7 @@ export default async function AdminProductsPage() {
 									)}
 								</>
 							</AdminTableBodyRowItem>
-							<AdminTableBodyRowItem>{product.name}</AdminTableBodyRowItem>
+							<AdminTableBodyRowItem><Link href={`/products/${product.slug}`}>{product.name}</Link></AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>£{product.price}</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
 								{product.categories.map(category => (
@@ -62,9 +62,13 @@ export default async function AdminProductsPage() {
 								))}
 							</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
-								<ul className='flex gap-2'>
+								<ul>
 								{product.tags.map(tag => (
-									<li key={tag.id}>{tag.name}</li>
+									<li key={tag.id}>
+										<Link href={`/tag/${tag.slug}`}>
+											{tag.name}
+										</Link>
+									</li>
 								))}
 								</ul>
 							</AdminTableBodyRowItem>
