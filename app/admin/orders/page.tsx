@@ -12,6 +12,7 @@ import {
 	AdminTableBodyRow, 
 	AdminTableBodyRowItem 
 } from '@/ui/Admin/Table';
+import Button from '@/ui/Button';
 
 async function getOrders(): Promise<Order[]> {
     const orders = await prisma.order.findMany({
@@ -54,13 +55,13 @@ export default async function AdminUsersPage() {
 				</AdminTableHeader>
 				<AdminTableBody>
 					{orders.map((order) => (
-						<AdminTableBodyRow>
+						<AdminTableBodyRow key={order.id}>
 							<AdminTableBodyRowItem><input type='checkbox' /></AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>{order.id}</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>{format(new Date(order.createdAt), 'PPpp')}</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>{format(new Date(order.updatedAt), 'PPpp')}</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
-								<button>Edit</button>
+								<Button>Edit</Button>
 							</AdminTableBodyRowItem>
 						</AdminTableBodyRow>
 					))}
