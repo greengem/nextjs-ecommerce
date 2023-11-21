@@ -39,7 +39,7 @@ export async function getProducts(): Promise<Product[]> {
     return products;
 }
 // Get all products by tag
-export async function getProductsByTag(slug: string): Promise<{ products: Product[], tagName: string }> {
+export async function getProductsByTag(slug: string): Promise<Product[]> {
     const products = await prisma.product.findMany({
         where: {
             tags: {
@@ -79,8 +79,7 @@ export async function getProductsByTag(slug: string): Promise<{ products: Produc
         }
     });
     
-    const tagName = products.length > 0 ? products[0].tags[0].name : 'Unknown Category';
-    return { products, tagName };
+    return products;
 }
 
 // Get all products by category
