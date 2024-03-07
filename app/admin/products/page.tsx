@@ -75,7 +75,7 @@ export default async function AdminProductsPage() {
 							<AdminTableBodyRowItem>
 								<div className='flex gap-2'>
 									<Link href={`/admin/products/${product.slug}`}>Edit</Link>
-									<form action={handleDeleteProduct}>
+									<form >
 										<input type="hidden" name="productId" value={product.id} />
 										<Button type='submit'>Delete</Button>
 									</form>
