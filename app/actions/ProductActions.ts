@@ -37,17 +37,34 @@ export async function handleCreateNewProduct(formData: FormData) {
 
   try {
     const validatedData = ProductSchema.parse(productData);
-    const product = await prisma.product.create({
+
+    // Check if category exists, if not, create it
+    let category = await prisma.category.findUnique({ where: { slug: validatedData.productCategory } });
+    if (!category) {
+      category = await prisma.category.create({ data: { slug: validatedData.productCategory, name: validatedData.productCategory } });
+    }
+
+    // Check if tags exist, if not, create them
+    const tags = [];
+    for (const tagSlug of validatedData.productTags) {
+      let tag = await prisma.tag.findUnique({ where: { slug: tagSlug } });
+      if (!tag) {
+        tag = await prisma.tag.create({ data: { slug: tagSlug, name: tagSlug } });
+      }
+      tags.push(tag);
+    }
+
+    await prisma.product.create({
       data: {
         name: validatedData.productName,
         slug: validatedData.productSlug,
         description: validatedData.productDescription,
         price: validatedData.productPrice,
         categories: {
-          connect: { slug: validatedData.productCategory },
+          connect: { id: category.id },
         },
         tags: {
-          connect: validatedData.productTags.map(tagSlug => ({ slug: tagSlug })),
+          connect: tags.map(tag => ({ id: tag.id })),
         },
       }
     });
