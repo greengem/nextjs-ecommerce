@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
-import NoticeMenu from '@/ui/Navbar/NoticeMenu';
+//import NoticeMenu from '@/ui/Navbar/NoticeMenu';
 import AppNavbar from '@/ui/Navbar/AppNavbar';
 import AdminMenu from '@/ui/Navbar/AdminMenu';
 
@@ -25,7 +25,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <Toaster />
           <AdminMenu />
-          <NoticeMenu />
+          {/* <NoticeMenu /> */}
           <AppNavbar />
           <main className='p-5'>{children}</main>
         </body>
