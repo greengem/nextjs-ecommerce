@@ -1,4 +1,3 @@
-import { getUsers } from '@/lib/FetchData';
 import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
 import { 
@@ -12,7 +11,6 @@ import {
 import Button from '@/ui/Button';
 
 export default async function AdminUsersPage() {
-	const users = await getUsers();
 	return (
 		<>
 			<PageHeading title='Users' />
@@ -26,7 +24,8 @@ export default async function AdminUsersPage() {
 					<AdminTableHeaderItem>Actions</AdminTableHeaderItem>
 				</AdminTableHeader>
 				<AdminTableBody>
-					{users.map((user) => (
+					Todo
+					{/* {users.map((user) => (
 						<AdminTableBodyRow key={user.id}>
 							<AdminTableBodyRowItem><input type='checkbox' /></AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
@@ -54,7 +53,7 @@ export default async function AdminUsersPage() {
 								<Button>Edit</Button>
 							</AdminTableBodyRowItem>
 						</AdminTableBodyRow>
-					))}
+					))} */}
 				</AdminTableBody>
 			</AdminTable>
 		</>
