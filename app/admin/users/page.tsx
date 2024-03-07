@@ -8,7 +8,7 @@ import {
 	AdminTableBodyRow, 
 	AdminTableBodyRowItem 
 } from '@/ui/Admin/Table';
-import Button from '@/ui/Button';
+import Button from '@/ui/Generic/Button';
 
 export default async function AdminUsersPage() {
 	return (

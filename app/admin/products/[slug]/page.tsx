@@ -1,6 +1,6 @@
 import PageHeading from '@/ui/Heading/PageHeading';
 import { handleEditProduct } from '@/app/actions/ProductActions';
-import Button from '@/ui/Button';
+import Button from '@/ui/Generic/Button';
 import { getProduct } from '@/lib/FetchData';
 
 export default async function AdminEditProductPage({ params }: { params: { slug: string } }) {

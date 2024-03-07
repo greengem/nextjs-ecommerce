@@ -1,7 +1,7 @@
 import { getProducts } from "@/lib/FetchData";
 import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
-import { handleDeleteProduct } from '@/app/actions/ProductActions';
+//import { handleDeleteProduct } from '@/app/actions/ProductActions';
 import { 
 	AdminTable, 
 	AdminTableHeader, 
@@ -10,7 +10,7 @@ import {
 	AdminTableBodyRow, 
 	AdminTableBodyRowItem 
 } from '@/ui/Admin/Table';
-import Button from '@/ui/Button';
+import Button from '@/ui/Generic/Button';
 import Link from 'next/link';
 
 export default async function AdminProductsPage() {
