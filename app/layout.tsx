@@ -1,10 +1,10 @@
+import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'sonner'
 import NoticeMenu from '@/ui/Navbar/NoticeMenu';
 import AppNavbar from '@/ui/Navbar/AppNavbar';
-import Breadcrumbs from '@/ui/Breadcrumb/Breadcrumb';
 import AdminMenu from '@/ui/Navbar/AdminMenu';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -20,14 +20,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Toaster />
-        <AdminMenu />
-        <NoticeMenu />
-        <AppNavbar />
-        <main className='p-5'>{children}</main>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <Toaster />
+          <AdminMenu />
+          <NoticeMenu />
+          <AppNavbar />
+          <main className='p-5'>{children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
