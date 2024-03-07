@@ -213,16 +213,3 @@ export async function getOrders(): Promise<Order[]> {
     });
     return orders;
 }
-
-// Get all users
-export async function getUsers(): Promise<User[]> {
-    const users = await prisma.user.findMany({
-        select: {
-            id: true,
-            name: true,
-			email: true,
-            image: true,
-        }
-    });
-    return users;
-}
