@@ -1,7 +1,6 @@
 import prisma from '@/db/prisma';
 import { Product, Tag, Category } from '@/types/ProductTypes';
 import { Order } from '@/types/OrderTypes';
-import { User } from '@/types/UserTypes';
 
 // Get all products
 export async function getProducts(): Promise<Product[]> {
