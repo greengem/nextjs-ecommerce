@@ -1,5 +1,4 @@
-import { auth, currentUser } from "@clerk/nextjs";
-import Image from "next/image"
+import { UserButton, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default async function AppNavbar() {
@@ -7,9 +6,9 @@ export default async function AppNavbar() {
     const user = await currentUser()
 
     return (
-        <nav className="flex justify-between px-5 py-3 items-center bg-gray-200">
-            <p className="w-32 text-lg"><Link className="font-bold" href="/">{brandName}</Link></p>
-            <ul className="flex gap-3 font-semibold">
+        <nav className="px-5 py-3 bg-neutral-900 text-white grid grid-cols-[100px,1fr,100px]">
+            <Link href="/" className="text-2xl tracking-tight font-light">{brandName}</Link>
+            <ul className="flex gap-3 justify-center items-center">
                 <li>
                     <Link href="/products">
                         Products
@@ -26,16 +25,9 @@ export default async function AppNavbar() {
                     </Link>
                 </li>
             </ul>
-            {user?.imageUrl && (
-                <div className="w-32 flex justify-end">
-                    <Image 
-                        src={user?.imageUrl || '/default-avatar.png'}
-                        width={32} height={32}
-                        className="rounded-full"
-                        alt="User Avatar"
-                    />
-                </div>
-            )}
+            <div className="flex justify-end">
+                <UserButton />
+            </div>
         </nav>
     )
 }
