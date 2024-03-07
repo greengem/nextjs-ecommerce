@@ -1,10 +1,10 @@
-import { auth } from "@/auth";
+import { auth, currentUser } from "@clerk/nextjs";
 import Image from "next/image"
 import Link from "next/link";
 
 export default async function AppNavbar() {
-    const session = await auth();
     const brandName = process.env.NEXT_PUBLIC_BRAND_NAME;
+    const user = await currentUser()
 
     return (
         <nav className="flex justify-between px-5 py-3 items-center bg-gray-200">
@@ -26,10 +26,10 @@ export default async function AppNavbar() {
                     </Link>
                 </li>
             </ul>
-            {session?.user?.image && (
+            {user?.imageUrl && (
                 <div className="w-32 flex justify-end">
                     <Image 
-                        src={session.user.image || '/default-avatar.png'}
+                        src={user?.imageUrl || '/default-avatar.png'}
                         width={32} height={32}
                         className="rounded-full"
                         alt="User Avatar"
