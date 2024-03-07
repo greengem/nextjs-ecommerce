@@ -47,13 +47,13 @@ export default function AdminNewProductForm({ categories, tags} : AdminNewProduc
 
     return (
         <form action={handleCreateNewProduct} className='max-w-lg mx-auto'>
-            <Input name='productName' id='productName' label='Name' required />
-            <Input name='productSlug' id='productSlug' label='Slug' />
-            <Input name='productPrice' id='productPrice' label='Price' />
-            <Textarea name='productDescription' id='productDescription' label='Description' />
-            <Select name='productCategory' id='productCategory' label='Category' required>{categoryList}</Select>
-            <Select name='productTags' id='productTags' label='Tags' multiple>{tagList}</Select>
-            <Input name='productInventory' id='productInventory' label='Inventory' />
+            <Input name='name' label='Name' required />
+            <Input name='slug' label='Slug' />
+            <Input name='price' label='Price' />
+            <Textarea name='description' label='Description' />
+            <Select name='category' label='Category' required>{categoryList}</Select>
+            <Select name='tags' label='Tags' multiple>{tagList}</Select>
+            <Input name='inventory' label='Inventory' />
             <Button type='submit'>Submit</Button>
         </form>
     )
