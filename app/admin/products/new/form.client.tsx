@@ -1,7 +1,9 @@
 'use client'
-import { useForm } from 'react-hook-form';
 import { handleCreateNewProduct } from '@/app/actions/ProductActions';
-import Button from '@/ui/Button';
+import Button from '@/ui/Generic/Button';
+import Input from '@/ui/Generic/Input';
+import Select from '@/ui/Generic/Select';
+import Textarea from '@/ui/Generic/Textarea';
 import { toast } from 'sonner';
 
 interface Category {
@@ -44,32 +46,14 @@ export default function AdminNewProductForm({ categories, tags} : AdminNewProduc
     // };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className='max-w-lg mx-auto'>
-            <label htmlFor='productName' className='block text-gray-600 font-semibold'>Product Name</label>
-            <input {...register('productName', { required: true })} id='productName' className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
-
-            <label htmlFor='productSlug' className='block text-gray-600 font-semibold'>Slug</label>
-            <input {...register('productSlug', { required: true })} id='productSlug' className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
-
-            <label htmlFor='productPrice' className='block text-gray-600 font-semibold'>Price</label>
-            <input {...register('productPrice', { required: true })} id='productPrice' className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
-
-            <label htmlFor='productDescription' className='block text-gray-600 font-semibold'>Description</label>
-            <textarea {...register('productDescription', { required: true })} id='productDescription' className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
-
-            <label htmlFor="productCategory" className='block text-gray-600 font-semibold'>Category</label>
-            <select {...register('productCategory', { required: true })} id="productCategory">
-                {categoryList}
-            </select>
-
-            <label htmlFor="productTags" className='block text-gray-600 font-semibold'>Tags</label>
-            <select {...register('productTags')} id="productTags" multiple>
-                {tagList}
-            </select>
-
-            <label htmlFor='productInventory' className='block text-gray-600 font-semibold'>Inventory</label>
-            <input {...register('productInventory', { required: true })} id='productInventory' className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
-
+        <form action={handleCreateNewProduct} className='max-w-lg mx-auto'>
+            <Input name='productName' id='productName' label='Name' required />
+            <Input name='productSlug' id='productSlug' label='Slug' />
+            <Input name='productPrice' id='productPrice' label='Price' />
+            <Textarea name='productDescription' id='productDescription' label='Description' />
+            <Select name='productCategory' id='productCategory' label='Category' required>{categoryList}</Select>
+            <Select name='productTags' id='productTags' label='Tags' multiple>{tagList}</Select>
+            <Input name='productInventory' id='productInventory' label='Inventory' />
             <Button type='submit'>Submit</Button>
         </form>
     )
