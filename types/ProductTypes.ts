@@ -1,19 +1,14 @@
 export interface Category {
     id: string;
-    name: string;
     slug: string;
-    image?: string | null;
+    name: string;
+    image: string | null;
 }
 
 export interface Tag {
     id: string;
-    name: string;
     slug: string;
-}
-
-export interface Inventory {
-    id: string;
-    quantity: number;
+    name: string;
 }
 
 export interface Product {
@@ -22,8 +17,7 @@ export interface Product {
     slug: string;
     price: number;
     description: string;
-    image?: string | null;
+    image: string | null;
     categories: Category[];
     tags: Tag[];
-    inventory: Inventory[];
 }
