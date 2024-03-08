@@ -1,10 +1,11 @@
 'use client'
-import { handleCreateNewProduct } from '@/app/actions/ProductActions';
-import Button from '@/ui/Generic/Button';
+import { handleCreateNewProduct } from '@/server-actions/ProductActions';
+import { SubmitButton } from '@/ui/Generic/Button';
+import { useFormState } from 'react-dom'
+
 import Input from '@/ui/Generic/Input';
 import Select from '@/ui/Generic/Select';
 import Textarea from '@/ui/Generic/Textarea';
-import { toast } from 'sonner';
 
 interface Category {
     id: string;
@@ -23,9 +24,14 @@ interface AdminNewProductFormProps {
     tags: Tag[];
 }
 
-export default function AdminNewProductForm({ categories, tags} : AdminNewProductFormProps ) {
+const initialState = {
+    message: '',
+    success: false,
+}
 
-    // Create Category and Tag List
+export default function AdminNewProductForm({ categories, tags} : AdminNewProductFormProps ) {
+    const [state, formAction] = useFormState(handleCreateNewProduct, initialState)
+
     const categoryList = categories.map((category) =>
         <option key={category.id} value={category.slug}>{category.name}</option>
     );
@@ -33,28 +39,18 @@ export default function AdminNewProductForm({ categories, tags} : AdminNewProduc
         <option key={tag.id} value={tag.slug}>{tag.name}</option>
     );
 
-	// Form Submit
-	// const onSubmit = async (data) => {
-    //     console.log('client data', data);
-    //     const response = await handleCreateNewProduct(data);
-    
-    //     if (response.success) {
-    //         toast.success(response.message);
-    //     } else {
-    //         toast.error(response.message);
-    //     }
-    // };
-
     return (
-        <form action={handleCreateNewProduct} className='max-w-lg mx-auto'>
+        <form action={formAction} className='max-w-lg mx-auto'>
             <Input name='name' label='Name' required />
-            <Input name='slug' label='Slug' />
-            <Input name='price' label='Price' />
-            <Textarea name='description' label='Description' />
-            <Select name='category' label='Category' required>{categoryList}</Select>
+            <Input name='slug' label='Slug' pattern='^[a-z0-9]+(-[a-z0-9]+)*$' title='Slug can only contain lowercase letters, numbers, and hyphens. It must not start or end with a hyphen.' required />
+            <Input name='price' label='Price' type='number' step='0.01' required />
+            <Textarea name='description' label='Description' required />
+            <Select name='category' label='Category' multiple required>{categoryList}</Select>
             <Select name='tags' label='Tags' multiple>{tagList}</Select>
-            <Input name='inventory' label='Inventory' />
-            <Button type='submit'>Submit</Button>
+            <Input name='inventory' label='Inventory' type='number' required />
+
+            <p className='text-red-500'>{state?.message}</p>
+            <SubmitButton>Submit</SubmitButton>
         </form>
     )
 }
