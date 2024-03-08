@@ -46,6 +46,8 @@ export async function handleCreateNewProduct(
 
   const data = validatedData.data;
 
+  await new Promise(resolve => setTimeout(resolve, 5000));
+
   if (data.id) {
     // Update existing product
     await prisma.product.update({
@@ -94,6 +96,8 @@ export async function handleDeleteProduct(productId: string) {
   if (!checkRole("admin")) {
     throw new Error("Unauthorized");
   }
+
+  await new Promise(resolve => setTimeout(resolve, 5000));
 
   // Delete product
   await prisma.product.delete({
