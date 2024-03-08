@@ -26,17 +26,12 @@ export async function getProducts(): Promise<Product[]> {
                     name: true,
                     slug: true,
                 }
-            },
-			inventory: {
-				select: {
-					id: true,
-					quantity: true,
-				}
-			}
+            }
         }
     });
     return products;
 }
+
 // Get all products by tag
 export async function getProductsByTag(slug: string): Promise<Product[]> {
     const products = await prisma.product.findMany({
@@ -69,12 +64,6 @@ export async function getProductsByTag(slug: string): Promise<Product[]> {
                     slug: true,
                 }
             },
-            inventory: {
-				select: {
-					id: true,
-					quantity: true,
-				}
-			}
         }
     });
     
@@ -113,12 +102,6 @@ export async function getProductsByCategory(slug: string): Promise<{ products: P
                     slug: true,
                 }
             },
-            inventory: {
-				select: {
-					id: true,
-					quantity: true
-				}
-			}
         }
     });
 
@@ -154,12 +137,6 @@ export async function getProduct(slug: string): Promise<Product | null> {
                     slug: true,
                 }
             },
-			inventory: {
-				select: {
-					id: true,
-					quantity: true
-				}
-			}
         }
     });
     return product;
