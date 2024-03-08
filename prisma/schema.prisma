@@ -11,38 +11,54 @@ datasource db {
 }
 
 model Product {
-  id          String    @id @default(cuid())
-  name      String
-  slug      String      @unique
-  price     Float
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  price       Float
   description String
-  image     String?
-  categories Category[]
-  tags        Tag[]     @relation("ProductTags")
-  orderItems OrderItem[]
-  inventory   Inventory[]
+  image       String?
+  categories  Category[]
+  tags        Tag[]         @relation("ProductTags")
+  orderItems  OrderItem[]
+  variants    ProductVariant[]
+}
+
+model ProductVariant {
+  id          String        @id @default(cuid())
+  productId   String
+  product     Product       @relation(fields: [productId], references: [id])
+  variantId   String
+  variant     Variant       @relation(fields: [variantId], references: [id])
+  inventory   Int
+}
+
+model Variant {
+  id          String        @id @default(cuid())
+  variantTypeId String
+  variantType VariantType  @relation(fields: [variantTypeId], references: [id])
+  value       String
+  products    ProductVariant[]
+}
+
+model VariantType {
+  id        String    @id @default(cuid())
+  name      String
+  variants  Variant[]
 }
 
 model Category {
-  id          String    @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  slug      String      @unique
+  slug      String    @unique
   image     String?
   products  Product[]
 }
 
 model Tag {
-    id        String    @id @default(cuid())
-    name      String    @unique
-    slug      String    @unique
-    products  Product[] @relation("ProductTags")
-}
-
-model Inventory {
-  id          String    @id @default(cuid())
-  productId String
-  product   Product @relation(fields: [productId], references: [id])
-  quantity     Int
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  products  Product[] @relation("ProductTags")
 }
 
 model Order {
