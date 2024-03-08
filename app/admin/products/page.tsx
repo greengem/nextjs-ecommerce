@@ -1,7 +1,6 @@
 import { getProducts } from "@/lib/FetchData";
 import Image from 'next/image';
 import PageHeading from '@/ui/Heading/PageHeading';
-import { handleDeleteProduct } from '@/server-actions/ProductActions';
 import { 
 	AdminTable, 
 	AdminTableHeader, 
@@ -10,7 +9,6 @@ import {
 	AdminTableBodyRow, 
 	AdminTableBodyRowItem 
 } from '@/ui/Admin/Table';
-import { Button } from '@/ui/Generic/Button';
 import Link from 'next/link';
 import DeleteProductButton from "./_components/DeleteProductButton";
 
@@ -75,7 +73,7 @@ export default async function AdminProductsPage() {
 							</AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
 								<div className='flex gap-2'>
-									<Link href={`/admin/products/${product.slug}`}>Edit</Link>
+									<Link href={`/admin/products/${product.id}`}>Edit</Link>
 									<DeleteProductButton productId={product.id} />
 								</div>
 							</AdminTableBodyRowItem>
