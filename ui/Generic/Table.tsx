@@ -19,8 +19,8 @@ interface TableRowProps {
   key: string | number;
 }
 
-export const TableRow = ({ children, key }: TableRowProps) => (
-  <tr key={key}>
+export const TableRow = ({ children }: TableRowProps) => (
+  <tr>
     {children}
   </tr>
 );
