@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { UserButton } from "@clerk/nextjs";
 import prisma from "@/db/prisma";
 import ProductItem from "@/ui/Product/ProductItem";
 export default async function HomePage() {
