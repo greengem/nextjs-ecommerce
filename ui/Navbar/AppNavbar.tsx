@@ -1,5 +1,6 @@
 import { UserButton, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
+import CartDrawer from "../CartDrawer/CartDrawer";
 
 export default async function AppNavbar() {
     const brandName = process.env.NEXT_PUBLIC_BRAND_NAME;
@@ -30,7 +31,8 @@ export default async function AppNavbar() {
                     </Link>
                 </li>
             </ul>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-3">
+                <CartDrawer />
                 <UserButton />
             </div>
         </nav>
