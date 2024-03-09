@@ -8,29 +8,24 @@ export default function AdminMenu() {
         return null;
     }
 
+    const menuItems = [
+        { href: "/admin/dashboard", label: "Dashboard" },
+        { href: "/admin/orders", label: "Orders" },
+        { href: "/admin/products", label: "Products" },
+        { href: "/admin/users", label: "Users" },
+        { href: "/admin/gallery", label: "Gallery"}
+    ];
+
     return (
         <nav className="px-5 py-1 bg-red-500 text-white text-xs">
             <ul className="flex gap-2">
-                <li>
-                    <Link href="/admin/dashboard">
-                        Dashboard
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/admin/orders">
-                        Orders
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/admin/products">
-                        Products
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/admin/users">
-                        Users
-                    </Link>
-                </li>
+                {menuItems.map((item) => (
+                    <li key={item.href}>
+                        <Link href={item.href}>
+                            {item.label}
+                        </Link>
+                    </li>
+                ))}
             </ul>
         </nav>
     )
