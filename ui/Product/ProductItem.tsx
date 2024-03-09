@@ -11,9 +11,9 @@ export default function ProductItem({ product }: ProductItemProps) {
     return (
         <div>
             <Link href={`/products/${product.slug}`}>
-            {product.image ? (
+            {product.imageUrl ? (
                 <Image 
-                    src={product.image} 
+                    src={product.imageUrl} 
                     alt={product.name} 
                     width={600} height={600}
                     className='mb-1'

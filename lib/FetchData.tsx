@@ -11,7 +11,7 @@ export async function getProducts(): Promise<Product[]> {
             slug: true,
             price: true,
             description: true,
-            image: true,
+            imageUrl: true,
             categories: {
                 select: {
                     id: true,
@@ -48,7 +48,7 @@ export async function getProductsByTag(slug: string): Promise<Product[]> {
             slug: true,
             price: true,
             description: true,
-            image: true,
+            imageUrl: true,
             categories: {
                 select: {
                     id: true,
@@ -86,7 +86,7 @@ export async function getProductsByCategory(slug: string): Promise<{ products: P
             slug: true,
             price: true,
             description: true,
-            image: true,
+            imageUrl: true,
             categories: {
                 select: {
                     id: true,
@@ -121,7 +121,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
             slug: true,
             price: true,
             description: true,
-            image: true,
+            imageUrl: true,
             categories: {
                 select: {
                     id: true,

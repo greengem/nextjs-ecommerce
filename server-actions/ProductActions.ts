@@ -25,6 +25,7 @@ export async function handleCreateNewProduct(
     description: z.string().min(1),
     category: z.array(z.string()),
     tags: z.array(z.string()),
+    imageUrl: z.string().url(),
   });
   
   // Parse form data
@@ -36,7 +37,11 @@ export async function handleCreateNewProduct(
     description: formData.get('description'),
     category: formData.getAll('category'),
     tags: formData.getAll('tags'),
+    imageUrl: formData.get('imageUrl'),
   }
+
+  console.log('Image URL:', rawFormData.imageUrl);
+
   const validatedData = schema.safeParse(rawFormData);
 
   if (!validatedData.success) {
@@ -63,6 +68,7 @@ export async function handleCreateNewProduct(
         tags: {
           set: data.tags.map((tag: string) => ({ slug: tag }))
         },
+        imageUrl: data.imageUrl,
         
       }
     });
@@ -80,7 +86,7 @@ export async function handleCreateNewProduct(
         tags: {
           connect: data.tags.map((tag: string) => ({ slug: tag }))
         },
-
+        imageUrl: data.imageUrl,
       }
     });
   }

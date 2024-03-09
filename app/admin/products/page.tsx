@@ -36,9 +36,9 @@ export default async function AdminProductsPage() {
 							<AdminTableBodyRowItem><input type='checkbox' /></AdminTableBodyRowItem>
 							<AdminTableBodyRowItem>
 								<>
-									{product.image ? (
+									{product.imageUrl ? (
 										<Image 
-											src={product.image} 
+											src={product.imageUrl} 
 											alt={product.name} 
 											width={32} height={32}
 											className='mb-1 rounded-full'
