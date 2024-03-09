@@ -23,11 +23,14 @@ export default async function Checkout() {
     });
 
     const headers = ['Product Name', 'Quantity', 'Actions'];
-    const data = cartItems.map(item => [
-        item.product.name, 
-        item.quantity, 
-        <RemoveFromCartButton cartItemId={item.id} />
-    ]);
+    const data = cartItems.map(item => ({
+        key: item.id,
+        data: [
+            item.product.name, 
+            item.quantity, 
+            <RemoveFromCartButton cartItemId={item.id} />
+        ]
+    }));
 
     return (
         <>

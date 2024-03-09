@@ -1,6 +1,6 @@
 interface TableProps {
   headers: string[];
-  data: any[][];
+  data: { key: string | number; data: any[] }[];
 }
 
 export default function Table({ headers, data }: TableProps) {
@@ -14,9 +14,9 @@ export default function Table({ headers, data }: TableProps) {
         </tr>
       </thead>
       <tbody>
-        {data.map((row, rowIndex) => (
-          <tr key={rowIndex}>
-            {row.map((cell, cellIndex) => (
+        {data.map((row) => (
+          <tr key={row.key}>
+            {row.data.map((cell, cellIndex) => (
               <td key={cellIndex} className="border px-4 py-2">{cell}</td>
             ))}
           </tr>

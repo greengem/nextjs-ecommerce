@@ -24,17 +24,20 @@ export default async function Cart() {
     });
 
     const headers = ['Product Name', 'Quantity', 'Actions'];
-    const data = cartItems.map(item => [
-        item.product.name, 
-        item.quantity, 
-        <RemoveFromCartButton cartItemId={item.id} />
-    ]);
+    const data = cartItems.map(item => ({
+        key: item.id,
+        data: [
+            item.product.name, 
+            item.quantity, 
+            <RemoveFromCartButton cartItemId={item.id} />
+        ]
+    }));
 
     return (
         <>
-        <PageHeading title='Cart' />
-        <Table headers={headers} data={data} />
-        <Link href="/checkout">Proceed to Checkout</Link>
+            <PageHeading title='Cart' />
+            <Table headers={headers} data={data} />
+            <Link href="/checkout">Proceed to Checkout</Link>
         </>
     )
 }
