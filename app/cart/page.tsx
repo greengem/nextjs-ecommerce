@@ -18,6 +18,7 @@ export default async function Cart() {
         },
         include: {
             product: true,
+        },
     });
 
     return (
