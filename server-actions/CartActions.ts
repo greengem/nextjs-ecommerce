@@ -10,7 +10,7 @@ export async function handleAddToCart(productId: string) {
     throw new Error("Unauthorized");
   }
 
-  await new Promise(resolve => setTimeout(resolve, 5000));
+  //await new Promise(resolve => setTimeout(resolve, 5000));
 
   // Check if cart exists for the user
   let cart = await prisma.cart.findFirst({
@@ -71,7 +71,7 @@ export async function handleRemoveFromCart(cartItemId: string) {
     },
   });
 
-  await new Promise(resolve => setTimeout(resolve, 5000));
+  //await new Promise(resolve => setTimeout(resolve, 5000));
 
 
   revalidatePath('/cart');
