@@ -21,6 +21,7 @@ model Product {
   tags        Tag[]         @relation("ProductTags")
   orderItems  OrderItem[]
   variants    ProductVariant[]
+  cartItems   CartItem[]
 }
 
 model ProductVariant {
@@ -79,3 +80,17 @@ model OrderItem {
   order     Order     @relation(fields: [orderId], references: [id])
 }
 
+model Cart {
+  id        String      @id @default(cuid())
+  userId    String
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id        String    @id @default(cuid())
+  quantity  Int
+  productId String
+  product   Product   @relation(fields: [productId], references: [id])
+  cartId    String
+  cart      Cart      @relation(fields: [cartId], references: [id])
+}
