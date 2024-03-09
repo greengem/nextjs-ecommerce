@@ -21,13 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
+      <html lang="en" className='flex flex-col min-h-dvh'>
+        <body className={`${inter.className} flex flex-col grow`}>
           <Toaster />
           <AdminMenu />
           {/* <NoticeMenu /> */}
           <AppNavbar />
-          <main className='p-5'>{children}</main>
+          <main className='flex flex-col grow'>{children}</main>
         </body>
       </html>
     </ClerkProvider>

@@ -7,15 +7,16 @@ type ButtonProps = {
     onClick?: () => void;
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
+    isIconOnly?: boolean;
 };
   
-export function Button({ children, onClick, type, disabled }: ButtonProps) {
+export function Button({ children, onClick, type, disabled, isIconOnly }: ButtonProps) {
   return (
     <button
       type={type || "button"}
       className={clsx(
-        "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-xs",
-        { "opacity-50": disabled }
+        "bg-neutral-100 hover:bg-neutral-400 text-black font-bold py-2 rounded text-xs ring-1 ring-neutral-500",
+        { "opacity-50": disabled, "px-2": isIconOnly, "px-4": !isIconOnly }
       )}
       onClick={onClick}
       disabled={disabled}

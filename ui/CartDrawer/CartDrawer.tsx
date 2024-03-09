@@ -12,7 +12,7 @@ import { Button } from "../Generic/Button"
 import prisma from "@/db/prisma"
 import { auth } from "@clerk/nextjs"
 import { IconShoppingBag } from "@tabler/icons-react"
-import RemoveFromCartButton from "@/app/cart/_components/RemoveFromCartButton"
+import RemoveFromCartButton from "@/app/(layout)/cart/_components/RemoveFromCartButton"
 import Link from "next/link"
 import { ButtonLink } from "../Generic/ButtonLink"
 
