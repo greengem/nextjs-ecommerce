@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs";
 import PageHeading from "@/ui/Heading/PageHeading";
 import prisma from "@/db/prisma";
 import RemoveFromCartButton from "./_components/RemoveFromCartButton";
-import Table from "@/ui/Generic/Table";
+import { Table, TableHeader, TableRow, TableCell } from "@/ui/Generic/Table";
 import Link from "next/link";
 
 export default async function Cart() {
@@ -23,20 +23,21 @@ export default async function Cart() {
         },
     });
 
-    const headers = ['Product Name', 'Quantity', 'Actions'];
-    const data = cartItems.map(item => ({
-        key: item.id,
-        data: [
-            item.product.name, 
-            item.quantity, 
-            <RemoveFromCartButton cartItemId={item.id} />
-        ]
-    }));
-
     return (
         <>
             <PageHeading title='Cart' />
-            <Table headers={headers} data={data} />
+            <Table>
+                <TableHeader headers={['Product Name', 'Quantity', 'Actions']} />
+                <tbody>
+                    {cartItems.map((item) => (
+                        <TableRow key={item.id}>
+                            <TableCell>{item.product.name}</TableCell>
+                            <TableCell>{item.quantity}</TableCell>
+                            <TableCell><RemoveFromCartButton cartItemId={item.id} /></TableCell>
+                        </TableRow>
+                    ))}
+                </tbody>
+            </Table>
             <Link href="/checkout">Proceed to Checkout</Link>
         </>
     )

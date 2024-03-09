@@ -1,8 +1,8 @@
 import { auth } from "@clerk/nextjs";
 import prisma from "@/db/prisma";
 import PageHeading from "@/ui/Heading/PageHeading";
-import Table from "@/ui/Generic/Table";
 import RemoveFromCartButton from "../cart/_components/RemoveFromCartButton";
+import { Table, TableHeader, TableRow, TableCell } from "@/ui/Generic/Table";
 
 export default async function Checkout() {
     const { userId } = auth();
@@ -22,20 +22,21 @@ export default async function Checkout() {
         },
     });
 
-    const headers = ['Product Name', 'Quantity', 'Actions'];
-    const data = cartItems.map(item => ({
-        key: item.id,
-        data: [
-            item.product.name, 
-            item.quantity, 
-            <RemoveFromCartButton cartItemId={item.id} />
-        ]
-    }));
-
     return (
         <>
             <PageHeading title='Checkout' />
-            <Table headers={headers} data={data} />
+            <Table>
+                <TableHeader headers={['Product Name', 'Quantity', 'Actions']} />
+                <tbody>
+                    {cartItems.map((item) => (
+                        <TableRow key={item.id}>
+                            <TableCell>{item.product.name}</TableCell>
+                            <TableCell>{item.quantity}</TableCell>
+                            <TableCell><RemoveFromCartButton cartItemId={item.id} /></TableCell>
+                        </TableRow>
+                    ))}
+                </tbody>
+            </Table>
         </>
     )
 }
