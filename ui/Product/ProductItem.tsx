@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from '@/types/ProductTypes';
+import AddToCart from "./AddToCart";
 
 interface ProductItemProps {
     product: Product;
@@ -51,6 +52,7 @@ export default function ProductItem({ product }: ProductItemProps) {
                     </li>
                 ))}
             </ul>
+            <AddToCart productId={product.id} />
         </div>
     )
 }
