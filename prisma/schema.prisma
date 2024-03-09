@@ -16,7 +16,7 @@ model Product {
   slug        String        @unique
   price       Float
   description String
-  image       String?
+  imageUrl       String?
   categories  Category[]
   tags        Tag[]         @relation("ProductTags")
   orderItems  OrderItem[]
