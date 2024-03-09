@@ -24,6 +24,11 @@ export default async function AppNavbar() {
                         Tags
                     </Link>
                 </li>
+                <li>
+                    <Link href="/cart">
+                        Cart
+                    </Link>
+                </li>
             </ul>
             <div className="flex justify-end">
                 <UserButton />
