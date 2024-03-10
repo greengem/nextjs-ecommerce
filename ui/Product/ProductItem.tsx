@@ -9,7 +9,7 @@ interface ProductItemProps {
 
 export default function ProductItem({ product }: ProductItemProps) {
     return (
-        <div>
+        <div className="bg-neutral-300">
             <Link href={`/products/${product.slug}`}>
             {product.imageUrl ? (
                 <Image 
@@ -27,32 +27,32 @@ export default function ProductItem({ product }: ProductItemProps) {
                 />
             )}
             </Link>
-            <h2>{product.name}</h2>
-            <p>{product.slug}</p>
-            <p className='text-xs'>{product.description}</p>
-            <p className='text-xs font-bold'>£{product.price}</p>
-            <p className="font-semibold">Categories: </p>
-            <ul>
-                {product.categories.map(category => (
-                    <li key={category.id}>
-                        <Link href={`/category/${category.slug}`}>
-                            {category.name}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+            <div className="p-3">
+                <h2 className="text-lg font-semibold mb-3">{product.name}</h2>
+                <p className='text-xs font-bold mb-3'>£{product.price}</p>
+                {/* <p className="font-semibold">Categories: </p>
+                <ul>
+                    {product.categories.map(category => (
+                        <li key={category.id}>
+                            <Link href={`/category/${category.slug}`}>
+                                {category.name}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
 
-            <p className="font-semibold">Tags: </p>
-            <ul>
-                {product.tags.map(tag => (
-                    <li key={tag.id}>
-                        <Link href={`/tag/${tag.slug}`}>
-                            {tag.name}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-            <AddToCart productId={product.id} />
+                <p className="font-semibold">Tags: </p>
+                <ul>
+                    {product.tags.map(tag => (
+                        <li key={tag.id}>
+                            <Link href={`/tag/${tag.slug}`}>
+                                {tag.name}
+                            </Link>
+                        </li>
+                    ))}
+                </ul> */}
+                <AddToCart productId={product.id} />
+            </div>
         </div>
     )
 }
