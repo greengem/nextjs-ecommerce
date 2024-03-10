@@ -72,7 +72,7 @@ export default function AdminNewProductForm({
             <Textarea name='description' label='Description' required defaultValue={existingProduct?.description} />
             <Select name='category' label='Category' multiple required defaultValue={existingProduct?.categories.map(category => category.slug)}>{categoryList}</Select>
             <Select name='tags' label='Tags' multiple defaultValue={existingProduct?.tags.map(tag => tag.slug)}>{tagList}</Select>
-            <input name="image" ref={inputFileRef} type="file" required onChange={handleImageUpload} />
+            <input name="image" ref={inputFileRef} type="file" onChange={handleImageUpload} />
             {blob && <input type="hidden" name="imageUrl" value={blob.url} />}
             {imageUrl && <Image src={imageUrl} width={640} height={480} alt="Product Image" />}
             {existingProduct && <input type="hidden" name="id" value={existingProduct.id} />}
