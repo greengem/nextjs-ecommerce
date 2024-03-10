@@ -25,7 +25,7 @@ export async function handleCreateNewProduct(
     description: z.string().min(1),
     category: z.array(z.string()),
     tags: z.array(z.string()),
-    imageUrl: z.string().url(),
+    imageUrl: z.string().url().nullable().optional(),
   });
   
   // Parse form data
@@ -37,7 +37,7 @@ export async function handleCreateNewProduct(
     description: formData.get('description'),
     category: formData.getAll('category'),
     tags: formData.getAll('tags'),
-    imageUrl: formData.get('imageUrl'),
+    imageUrl: formData.get('imageUrl') || null,
   }
 
   console.log('Image URL:', rawFormData.imageUrl);
@@ -68,7 +68,7 @@ export async function handleCreateNewProduct(
         tags: {
           set: data.tags.map((tag: string) => ({ slug: tag }))
         },
-        imageUrl: data.imageUrl,
+        ...(data.imageUrl !== null ? { imageUrl: data.imageUrl } : {}),
         
       }
     });
@@ -86,7 +86,7 @@ export async function handleCreateNewProduct(
         tags: {
           connect: data.tags.map((tag: string) => ({ slug: tag }))
         },
-        imageUrl: data.imageUrl,
+        ...(data.imageUrl !== null ? { imageUrl: data.imageUrl } : {}),
       }
     });
   }
@@ -103,7 +103,12 @@ export async function handleDeleteProduct(productId: string) {
     throw new Error("Unauthorized");
   }
 
-  //await new Promise(resolve => setTimeout(resolve, 5000));
+  // Delete product variants
+  await prisma.productVariant.deleteMany({
+    where: {
+      productId: productId
+    }
+  });
 
   // Delete product
   await prisma.product.delete({
