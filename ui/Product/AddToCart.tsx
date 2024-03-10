@@ -1,6 +1,6 @@
 'use client'
 import { handleAddToCart } from "@/server-actions/CartActions";
-import { Button } from "../Generic/Button";
+import { Button } from "@radix-ui/themes";
 import { useTransition } from "react";
 
 export default function AddToCart({ productId } : { productId: string }) {
