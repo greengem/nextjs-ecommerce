@@ -1,7 +1,6 @@
 "use client";
- 
 import { usePathname, useRouter } from "next/navigation";
- 
+import { Button } from "@radix-ui/themes";
 export const SearchUsers = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -19,7 +18,7 @@ export const SearchUsers = () => {
       >
         <label htmlFor="search">Search for Users</label>
         <input id="search" name="search" type="text" />
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
