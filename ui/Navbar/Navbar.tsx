@@ -16,7 +16,7 @@ function NavbarBrand() {
 export default function Navbar() {
 
     return (
-        <nav className="px-5 py-3 bg-black text-white grid grid-cols-[100px,1fr,100px]">
+        <nav className="px-5 py-3 bg-black text-white grid grid-cols-[100px,1fr,100px] shadow-md">
             <NavbarBrand />
             <NavbarMenu />
             <div className="flex justify-end gap-3">
