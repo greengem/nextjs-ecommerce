@@ -36,7 +36,6 @@ export default function ProductFilterByTaxonomy({
 
     return (
         <Select multiple value={selectedItems} onChange={handleFilterTaxonomy}>
-            <option value="">All {taxonomyName}</option>
             {taxonomyItems.map((item) => (
                 <option key={item.id} value={item.slug}>{item.name}</option>
             ))}
