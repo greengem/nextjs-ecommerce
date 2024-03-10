@@ -13,7 +13,7 @@ export default function AddToCart({ productId } : { productId: string }) {
     };
 
     return (
-        <Button onClick={handleClick} disabled={isPending}>
+        <Button onClick={handleClick} disabled={isPending} className="w-full">
             Add to Cart
         </Button>
     )
