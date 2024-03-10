@@ -1,7 +1,7 @@
 'use client'
 import { handleDeleteProduct } from "@/server-actions/ProductActions"
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
-import { Button } from "@/ui/Generic/Button"
+import { Button } from "@radix-ui/themes";
 
 export default function DeleteProductButton({ productId } : { productId: string }) {
     return (
