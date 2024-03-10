@@ -8,13 +8,14 @@ import {
   SheetFooter,
   SheetClose
 } from "../Sheet"
-import { Button } from "../Generic/Button"
+import { Button } from "@radix-ui/themes";
 import prisma from "@/db/prisma"
 import { auth } from "@clerk/nextjs"
 import { IconShoppingBag } from "@tabler/icons-react"
 import RemoveFromCartButton from "@/app/(layout)/cart/_components/RemoveFromCartButton"
 import Link from "next/link"
 import { ButtonLink } from "../Generic/ButtonLink"
+import { IconButton } from "@radix-ui/themes";
 
 export default async function CartDrawer() {
   const { userId } = auth();
@@ -37,7 +38,7 @@ export default async function CartDrawer() {
   return (
       <Sheet>
         <SheetTrigger asChild>
-          <Button><IconShoppingBag size={18} /></Button>
+          <IconButton><IconShoppingBag size={18} /></IconButton>
         </SheetTrigger>
         <SheetContent side="right" className="bg-white">
           <SheetHeader>
