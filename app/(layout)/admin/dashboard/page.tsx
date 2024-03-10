@@ -3,7 +3,7 @@ import { checkRole } from "@/utils/roles";
 import { SearchUsers } from "./_search-users";
 import { clerkClient } from "@clerk/nextjs";
 import { setRole } from "./_actions";
- 
+import { Button } from "@radix-ui/themes";
 export default async function AdminDashboard(params: {
   searchParams: { search?: string };
 }) {
@@ -41,14 +41,14 @@ export default async function AdminDashboard(params: {
               <form action={setRole}>
                 <input type="hidden" value={user.id} name="id" />
                 <input type="hidden" value="admin" name="role" />
-                <button type="submit">Make Admin</button>
+                <Button type="submit">Make Admin</Button>
               </form>
             </div>
             <div>
               <form action={setRole}>
                 <input type="hidden" value={user.id} name="id" />
                 <input type="hidden" value="moderator" name="role" />
-                <button type="submit">Make Moderator</button>
+                <Button type="submit">Make Moderator</Button>
               </form>
             </div>
           </div>
