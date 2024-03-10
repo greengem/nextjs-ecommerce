@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
 //import NoticeMenu from '@/ui/Navbar/NoticeMenu';
-import AppNavbar from '@/ui/Navbar/AppNavbar';
+import Navbar from '@/ui/Navbar/Navbar';
 import AdminMenu from '@/ui/Navbar/AdminMenu';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,9 +24,9 @@ export default function RootLayout({
       <html lang="en" className='flex flex-col min-h-dvh'>
         <body className={`${inter.className} flex flex-col grow`}>
           <Toaster />
-          <AdminMenu />
+          {/* <AdminMenu /> */}
           {/* <NoticeMenu /> */}
-          <AppNavbar />
+          <Navbar />
           <main className='flex flex-col grow'>{children}</main>
         </body>
       </html>
