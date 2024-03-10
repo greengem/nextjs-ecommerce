@@ -1,19 +1,50 @@
-import { getProducts } from "@/lib/FetchData";
 import PageHeading from '@/ui/Heading/PageHeading';
-import ProductItem from '@/ui/Product/ProductItem';
+import FetchFilteredProducts from "./FetchFilteredProducts";
 
-export default async function Products() {
-    const products = await getProducts();
+import prisma from '@/db/prisma';
+import ProductFilterByTaxonomy from './_Filters/ProductFilterByTaxonomy';
+
+export default async function Products({
+    searchParams,
+  }: {
+    searchParams?: {
+        search?: string;
+        page?: number;
+        perPage?: number;
+        cat?: string;
+        tag?: string;
+    };
+  }) {
+
+    const search = searchParams?.search || "";
+    const cat = searchParams?.cat ? searchParams?.cat.split(",") : [];
+    const tag = searchParams?.tag ? searchParams?.tag.split(",") : [];
+    const currentPage = Number(searchParams?.page) || 1;
+    const perPage = Number(searchParams?.perPage) || 10;
+
+    const categories = await prisma.category.findMany();
+	const tags = await prisma.tag.findMany();
 
     return (
         <>
             <PageHeading title='Products' />
-
-            <div className='grid grid-cols-1 md:grid-cols-5 gap-5'>
-                {products.map((product) => (
-                    <ProductItem key={product.id} product={product} />
-                ))}
-            </div>
+            <ProductFilterByTaxonomy 
+                taxonomy='cat'
+                taxonomyName='Categories'
+                taxonomyItems={categories} 
+            />
+            <ProductFilterByTaxonomy 
+                taxonomy='tag'
+                taxonomyName='Tags'
+                taxonomyItems={tags} 
+            />
+            <FetchFilteredProducts
+                search={search}
+                cat={cat}
+                tag={tag}
+                currentPage={currentPage}
+                perPage={perPage}
+            />
         </>
     )
 }
