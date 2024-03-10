@@ -9,7 +9,7 @@ import {
 	AdminTableBodyRow, 
 	AdminTableBodyRowItem 
 } from '@/ui/Admin/Table';
-import { Button } from '@/ui/Generic/Button';
+import { Button } from "@radix-ui/themes";
 
 export default async function AdminUsersPage() {
 	const orders = await getOrders();
