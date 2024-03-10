@@ -28,16 +28,18 @@ export default async function Products({
     return (
         <>
             <PageHeading title='Products' />
-            <ProductFilterByTaxonomy 
-                taxonomy='cat'
-                taxonomyName='Categories'
-                taxonomyItems={categories} 
-            />
-            <ProductFilterByTaxonomy 
-                taxonomy='tag'
-                taxonomyName='Tags'
-                taxonomyItems={tags} 
-            />
+            <div className='grid grid-cols-2 gap-3'>
+                <ProductFilterByTaxonomy 
+                    taxonomy='cat'
+                    taxonomyName='Categories'
+                    taxonomyItems={categories} 
+                />
+                <ProductFilterByTaxonomy 
+                    taxonomy='tag'
+                    taxonomyName='Tags'
+                    taxonomyItems={tags} 
+                />
+            </div> 
             <FetchFilteredProducts
                 search={search}
                 cat={cat}
