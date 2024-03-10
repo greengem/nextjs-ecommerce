@@ -1,6 +1,6 @@
 'use client'
 import { handleRemoveFromCart } from "@/server-actions/CartActions"
-import { Button } from "@/ui/Generic/Button"
+import { Button } from "@radix-ui/themes";
 import { useTransition } from "react"
 
 export default function RemoveFromCartButton({ cartItemId }: { cartItemId: string }) {
