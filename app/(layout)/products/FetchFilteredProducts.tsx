@@ -2,9 +2,10 @@ import prisma from "@/db/prisma";
 import ProductItem from "@/ui/Product/ProductItem";
 
 export default async function FetchFilteredProducts({
-    search, cat, tag, currentPage, perPage
+    search, sort, cat, tag, currentPage, perPage
 } : {
     search?: string;
+    sort?: string;
     cat?: string[];
     tag?: string[];
     currentPage?: number;
@@ -43,6 +44,15 @@ export default async function FetchFilteredProducts({
         };
     }
 
+    // Determine the sorting method based on the `sort` prop
+    const orderBy = [];
+    if (sort) {
+        const [field, order] = sort.split('_');
+        orderBy.push({
+            [field]: order
+        });
+    }
+
     const products = await prisma.product.findMany({
         where: whereClause,
         select: {
@@ -68,6 +78,7 @@ export default async function FetchFilteredProducts({
                 }
             }
         },
+        orderBy: orderBy, // Add the orderBy clause here
         skip: skip,
         take: perPage || undefined
     });
