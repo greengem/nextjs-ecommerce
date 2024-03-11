@@ -38,7 +38,9 @@ export default async function CartDrawer() {
   return (
       <Sheet>
         <SheetTrigger asChild>
-          <IconButton><IconShoppingBag size={18} /></IconButton>
+          <Button>
+            Cart{cartItems.length > 0 ? ` (${cartItems.length})` : ""}
+          </Button>
         </SheetTrigger>
         <SheetContent side="right" className="bg-white">
           <SheetHeader>
