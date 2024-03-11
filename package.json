@@ -28,6 +28,7 @@
     "react-hook-form": "^7.48.2",
     "sonner": "^1.4.3",
     "tailwind-merge": "^2.2.1",
+    "use-debounce": "^10.0.0",
     "uvcanvas": "^0.2.1",
     "zod": "^3.22.4"
   },
