@@ -3,6 +3,8 @@ import FetchFilteredProducts from "./FetchFilteredProducts";
 
 import prisma from '@/db/prisma';
 import ProductFilterByTaxonomy from './_Filters/ProductFilterByTaxonomy';
+import ProductFilterBySearch from './_Filters/ProductFilterBySearch';
+import ProductSorting from './_Filters/ProductSorting';
 
 export default async function Products({
     searchParams,
@@ -13,10 +15,12 @@ export default async function Products({
         perPage?: number;
         cat?: string;
         tag?: string;
+        sort?: string;
     };
   }) {
 
     const search = searchParams?.search || "";
+    const sort = searchParams?.sort || "";
     const cat = searchParams?.cat ? searchParams?.cat.split(",") : [];
     const tag = searchParams?.tag ? searchParams?.tag.split(",") : [];
     const currentPage = Number(searchParams?.page) || 1;
@@ -28,7 +32,9 @@ export default async function Products({
     return (
         <>
             <PageHeading title='Products' />
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid grid-cols-4 gap-3 mb-3'>
+                <ProductFilterBySearch />
+                <ProductSorting />
                 <ProductFilterByTaxonomy 
                     taxonomy='cat'
                     taxonomyName='Categories'
@@ -42,6 +48,7 @@ export default async function Products({
             </div> 
             <FetchFilteredProducts
                 search={search}
+                sort={sort}
                 cat={cat}
                 tag={tag}
                 currentPage={currentPage}
