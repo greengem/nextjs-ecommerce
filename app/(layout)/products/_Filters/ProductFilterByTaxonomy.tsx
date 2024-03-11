@@ -1,12 +1,11 @@
 'use client'
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import Select from "@/ui/Generic/Select"
+import { Select } from "@radix-ui/themes";
 
 interface ProductFilterByTaxonomyProps {
     id: string;
     name: string;
     slug: string;
-    //image: string | null;
 }
 
 export default function ProductFilterByTaxonomy({ 
@@ -22,12 +21,11 @@ export default function ProductFilterByTaxonomy({
 
     const selectedItems = searchParams.get(taxonomy)?.split(",") || [];
 
-    function handleFilterTaxonomy(event: React.ChangeEvent<HTMLSelectElement>) {
-        const terms = Array.from(event.target.selectedOptions, option => option.value);
+    function handleFilterTaxonomy(value: string) {
         const params = new URLSearchParams(searchParams);
         params.set("page", "1");
-        if (terms.length > 0) {
-          params.set(taxonomy, terms.join(","));
+        if (value.length > 0) {
+          params.set(taxonomy, value);
         } else {
           params.delete(taxonomy);
         }
@@ -35,10 +33,13 @@ export default function ProductFilterByTaxonomy({
     }
 
     return (
-        <Select multiple value={selectedItems} onChange={handleFilterTaxonomy}>
-            {taxonomyItems.map((item) => (
-                <option key={item.id} value={item.slug}>{item.name}</option>
-            ))}
-        </Select>
+        <Select.Root onValueChange={handleFilterTaxonomy} defaultValue={selectedItems[0]}>
+            <Select.Trigger placeholder={taxonomyName} />
+            <Select.Content position="popper">
+                {taxonomyItems.map((item) => (
+                    <Select.Item key={item.id} value={item.slug}>{item.name}</Select.Item>
+                ))}
+            </Select.Content>
+        </Select.Root>
     )
 }
