@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs";
 import PageHeading from "@/ui/Heading/PageHeading";
 import prisma from "@/db/prisma";
 import RemoveFromCartButton from "./_components/RemoveFromCartButton";
-import { Table, TableHeader, TableRow, TableCell } from "@/ui/Generic/Table";
+import { Table } from "@radix-ui/themes";
 import Link from "next/link";
 
 export default async function Cart() {
@@ -26,18 +26,24 @@ export default async function Cart() {
     return (
         <>
             <PageHeading title='Cart' />
-            <Table>
-                <TableHeader headers={['Product Name', 'Quantity', 'Actions']} />
-                <tbody>
+            <Table.Root>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.ColumnHeaderCell>Product Name</Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>Quantity</Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
                     {cartItems.map((item) => (
-                        <TableRow key={item.id}>
-                            <TableCell>{item.product.name}</TableCell>
-                            <TableCell>{item.quantity}</TableCell>
-                            <TableCell><RemoveFromCartButton cartItemId={item.id} /></TableCell>
-                        </TableRow>
+                        <Table.Row key={item.id}>
+                            <Table.RowHeaderCell>{item.product.name}</Table.RowHeaderCell>
+                            <Table.Cell>{item.quantity}</Table.Cell>
+                            <Table.Cell><RemoveFromCartButton cartItemId={item.id} /></Table.Cell>
+                        </Table.Row>
                     ))}
-                </tbody>
-            </Table>
+                </Table.Body>
+            </Table.Root>
             <Link href="/checkout">Proceed to Checkout</Link>
         </>
     )
