@@ -7,6 +7,7 @@ import { Tranquiluxe } from "uvcanvas"
 export default async function HomePage() {
 
 	const products = await prisma.product.findMany({
+        take: 3,
         select: {
             id: true,
             name: true,
